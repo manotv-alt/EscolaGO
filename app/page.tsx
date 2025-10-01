@@ -1,4 +1,5 @@
 import { Header } from "@/components/header"
+import { Footer } from "@/components/footer"
 import { HeroSection } from "@/components/hero-section"
 import { InfoSection } from "@/components/info-section"
 import { Card, CardContent } from "@/components/ui/card"
@@ -53,6 +54,7 @@ export default async function HomePage() {
           </div>
         </section>
       </main>
+      <Footer />
     </div>
   )
 }

@@ -172,27 +172,39 @@ export function SchoolDashboard({ school }: SchoolDashboardProps) {
       >
         <CardHeader>
           <CardTitle className="text-lg sm:text-xl">Sobre os Dados</CardTitle>
+          <p className="text-sm">Aqui você descobre o que cada informação significa e por que ela é importante para 
+entender a sua escola.
+          </p>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="hover:bg-muted/50 p-3 rounded-lg transition-colors">
             <h4 className="font-semibold text-sm mb-2">IDEB (Índice de Desenvolvimento da Educação Básica)</h4>
             <p className="text-xs sm:text-sm text-muted-foreground text-pretty">
-              O IDEB é um indicador de qualidade educacional que combina informações de desempenho em exames
-              padronizados com informações sobre rendimento escolar. A meta nacional é atingir nota 6,0 até 2022.
+              É a nota oficial de qualidade que o Ministério da Educação (MEC) dá para sua escola. 
+O IDEB é calculado com duas informações principais: 
+1. O quanto os alunos aprenderam nas provas de Português e Matemática. 
+2. A taxa de progresso, ou seja, quantos alunos estão avançando sem reprovar. 
+Quanto mais perto de 10, melhor a qualidade da escola. É o indicador mais importante 
+para saber o desempenho da sua unidade!
             </p>
           </div>
           <div className="hover:bg-muted/50 p-3 rounded-lg transition-colors">
             <h4 className="font-semibold text-sm mb-2">Vagas Disponíveis</h4>
             <p className="text-xs sm:text-sm text-muted-foreground text-pretty">
-              Número de vagas disponíveis para matrícula na unidade escolar, atualizado pela Secretaria de Estado da
-              Educação de Goiás.
+              Este é o número exato de vagas abertas para novos alunos ou estudantes que desejam 
+se matricular na unidade escolar. É um dado importante para entender a capacidade de 
+atendimento da escola e é atualizado diretamente pela Secretaria de Estado da Educação 
+de Goiás (Seduc-GO).
             </p>
           </div>
           <div className="hover:bg-muted/50 p-3 rounded-lg transition-colors">
             <h4 className="font-semibold text-sm mb-2">Investimento Público</h4>
             <p className="text-xs sm:text-sm text-muted-foreground text-pretty">
-              Valor total de investimento público destinado à escola, incluindo infraestrutura, recursos pedagógicos e
-              manutenção, conforme dados do Portal da Transparência do Governo de Goiás.
+              Representa o valor total em dinheiro que o Governo de Goiás destina à sua escola. 
+Este investimento cobre tudo o que a escola precisa para funcionar, como a manutenção 
+da infraestrutura (quadras, salas de aula), a compra de recursos pedagógicos e outros 
+custos. Este dado vem do Portal da Transparência, garantindo que você saiba como o 
+dinheiro está sendo usado.
             </p>
           </div>
         </CardContent>

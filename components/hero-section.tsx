@@ -21,7 +21,7 @@ export function HeroSection() {
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
-            <span className="text-accent inline-block hover:scale-105 cursor-pointer transition-transform duration-300">
+            <span className="text-green-400 inline-block hover:scale-105 cursor-pointer transition-transform duration-300">
               Transparência
             </span>{" "}
             na educação pública de Goiás
@@ -32,8 +32,9 @@ export function HeroSection() {
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
-            Acesse dados completos sobre escolas públicas estaduais: IDEB, vagas disponíveis e investimentos públicos em
-            um só lugar.
+            Acesse, compare e entenda os dados 
+completos sobre as escolas estaduais de Goiás: IDEB, vagas disponíveis e 
+investimentos públicos, reunidos em uma única plataforma clara e acessível.
           </p>
 
           <div

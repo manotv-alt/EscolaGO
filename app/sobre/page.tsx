@@ -1,6 +1,7 @@
 "use client"
 
 import { Header } from "@/components/header"
+import { Footer } from "@/components/footer"
 import { Card, CardContent } from "@/components/ui/card"
 import { Target, Database, Users, Shield } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
@@ -82,8 +83,10 @@ export default function AboutPage() {
                 Sobre o Projeto
               </h1>
               <p className="text-base sm:text-lg md:text-xl text-white/90 text-pretty animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-200">
-                Uma iniciativa dedicada a tornar os dados educacionais de Goiás acessíveis, transparentes e
-                compreensíveis para todos os cidadãos.
+                EscolaGO! é uma plataforma de transparência e dados abertos criada para a rede 
+estadual de ensino de Goiás. Nosso objetivo é resolver o problema da falta de acesso, 
+transformando dados complexos, como notas do IDEB e investimentos públicos, em 
+conhecimento claro e fácil para os alunos.
               </p>
             </div>
           </div>
@@ -99,7 +102,13 @@ export default function AboutPage() {
                 }`}
               >
                 Nossa Missão
+                <p className="text-base mt-3 font-normal">EscolaGO! é uma plataforma de transparência e dados abertos criada para a rede 
+estadual de ensino de Goiás. Nosso objetivo é resolver o problema da falta de acesso, 
+transformando dados complexos, como notas do IDEB e investimentos públicos, em 
+conhecimento claro e fácil para os alunos. 
+                </p>
               </h2>
+              
               <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
                 {goals.map((goal, index) => {
                   const Icon = goal.icon
@@ -209,6 +218,7 @@ export default function AboutPage() {
           </div>
         </section>
       </main>
+      <Footer />
     </div>
   )
 }

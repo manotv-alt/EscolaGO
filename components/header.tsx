@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { Search, Menu, X } from "lucide-react"
+import { Search, Menu, X, Globe } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
 
@@ -17,10 +17,10 @@ export function Header() {
         >
           <div className="flex items-center gap-2">
             <div className="h-8 w-8 rounded-full bg-primary-foreground/20 flex items-center justify-center">
-              <span className="text-sm font-bold">GO</span>
+              <span className="text-sm font-bold"><Globe /></span>
             </div>
-            <span className="hidden sm:inline">Transparência Escolar</span>
-            <span className="sm:hidden">Transp. Escolar</span>
+            <span className="hidden sm:inline">EscolaGO!</span>
+            <span className="sm:hidden">EscolaGO!</span>
           </div>
         </Link>
 

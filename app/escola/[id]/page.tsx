@@ -1,4 +1,5 @@
 import { Header } from "@/components/header"
+import { Footer } from "@/components/footer"
 import { SchoolDashboard } from "@/components/school-dashboard"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft } from "lucide-react"
@@ -25,6 +26,7 @@ export default async function SchoolPage({ params }: { params: { id: string } })
         </Link>
         <SchoolDashboard school={school} />
       </main>
+      <Footer />
     </div>
   )
 }
