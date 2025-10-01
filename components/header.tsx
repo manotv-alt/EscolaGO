@@ -45,14 +45,13 @@ export function Header() {
           </Link>
         </nav>
 
-        <Button
-          variant="secondary"
-          size="sm"
-          className="hidden md:flex bg-primary-foreground text-primary hover:bg-primary-foreground/90 transition-all hover:scale-105 hover:shadow-lg"
+        <Link
+          href="/"
+          className="hidden md:flex items-center py-1 px-2 justify-center rounded-md bg-primary-foreground text-primary hover:bg-primary-foreground/90 transition-all hover:scale-105 hover:shadow-lg"
         >
           <Search className="h-4 w-4 mr-2" />
           Buscar Escola
-        </Button>
+        </Link>
 
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -94,15 +93,14 @@ export function Header() {
           >
             Contato
           </Link>
-          <Button
-            variant="secondary"
-            size="sm"
-            className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 transition-all active:scale-95"
+          <Link
+            href="/"
+            className="bg-primary-foreground flex items-center justify-center rounded-lg text-primary hover:bg-primary-foreground/90 transition-all active:scale-95"
             onClick={() => setMobileMenuOpen(false)}
           >
             <Search className="h-4 w-4 mr-2" />
             Buscar Escola
-          </Button>
+          </Link>
         </nav>
       </div>
     </header>

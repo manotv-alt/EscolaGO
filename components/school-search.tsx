@@ -104,7 +104,7 @@ export function SchoolSearch() {
       )}
 
       {isOpen && !isLoading && suggestions.length > 0 && (
-        <div className="absolute top-full mt-2 w-full bg-background border rounded-lg shadow-xl z-50 overflow-hidden animate-in slide-in-from-top-2 duration-300">
+        <div className="absolute max-h-54 top-full mt-2 w-full bg-background border rounded-lg shadow-xl z-50 overflow-y-auto animate-in slide-in-from-top-2 duration-300">
           {suggestions.map((school, index) => (
             <button
               key={school.id}

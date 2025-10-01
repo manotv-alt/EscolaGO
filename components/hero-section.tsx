@@ -11,7 +11,7 @@ export function HeroSection() {
   }, [])
 
   return (
-    <section className="relative bg-secondary text-secondary-foreground py-16 md:py-32 overflow-hidden">
+    <section className="relative bg-secondary text-secondary-foreground py-16 md:py-32">
       <div className="absolute inset-0 bg-gradient-to-br from-secondary via-secondary to-secondary/80 animate-gradient" />
 
       <div className="container mx-auto px-4 relative z-10">
