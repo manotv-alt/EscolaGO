@@ -102,10 +102,10 @@ conhecimento claro e fácil para os alunos.
                 }`}
               >
                 Nossa Missão
-                <p className="text-base mt-3 font-normal">EscolaGO! é uma plataforma de transparência e dados abertos criada para a rede 
-estadual de ensino de Goiás. Nosso objetivo é resolver o problema da falta de acesso, 
-transformando dados complexos, como notas do IDEB e investimentos públicos, em 
-conhecimento claro e fácil para os alunos. 
+                <p className="text-base mt-3 font-normal">Permitir que os alunos da rede estadual de educação de Goiás pesquisem e comparem os 
+dados de suas escolas, para promover o empoderamento estudantil e fortalecer o 
+controle social, garantindo que os jovens usem dados reais para entender e melhorar a 
+qualidade da educação que recebem. 
                 </p>
               </h2>
               

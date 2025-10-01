@@ -6,7 +6,7 @@ import { Globe } from "lucide-react"
 export function Footer() {
   return (
     <footer className="z-50 border-t w-full text-center bg-primary text-primary-foreground shadow-md">
-      <div className="container border-b flex-col py-4 sm:py-0 sm:flex-row mx-auto flex sm:h-16 items-center justify-between px-4">
+      <div className="border-b flex-col py-4 mx-16 sm:py-0 sm:flex-row flex sm:h-16 items-center justify-between px-4">
         <Link
           href="/"
           className="flex items-center gap-2 font-bold text-lg md:text-xl transition-transform hover:scale-105"

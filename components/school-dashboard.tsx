@@ -172,7 +172,7 @@ export function SchoolDashboard({ school }: SchoolDashboardProps) {
       >
         <CardHeader>
           <CardTitle className="text-lg sm:text-xl">Sobre os Dados</CardTitle>
-          <p className="text-sm">Aqui você descobre o que cada informação significa e por que ela é importante para 
+          <p className="text-sm">Aqui você descobre o que cada informação significa e porque ela é importante para 
 entender a sua escola.
           </p>
         </CardHeader>
