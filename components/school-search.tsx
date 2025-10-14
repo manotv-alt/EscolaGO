@@ -22,7 +22,7 @@ export function SchoolSearch() {
       if (query.length > 2) {
         setIsLoading(true)
         const results = await searchSchools(query)
-        setSuggestions(results.slice(0, 6))
+        setSuggestions(results)
         setIsOpen(true)
         setIsLoading(false)
       } else {

@@ -7,9 +7,9 @@ import { Suspense } from "react"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "Transparência Escolar - Goiás",
-  description: "Dados transparentes e acessíveis sobre escolas públicas do estado de Goiás",
-  generator: "v0.app",
+  title: "EscolaGO",
+  description: "Dados transparentes e acessíveis sobre escolas Estaduais de Goiás",
+  generator: "EscolaGO",
 }
 
 export default function RootLayout({
