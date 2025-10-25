@@ -1,31 +1,35 @@
 "use client"
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { BarChart3, Users, DollarSign, MapPin, Phone, Mail } from "lucide-react"
+import { Users, DollarSign, MapPin, Phone } from "lucide-react"
 import { useEffect, useState } from "react"
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend } from "recharts";
+import { School } from "@/lib/db";
 
-interface SchoolData {
-  id: string
-  name: string
-  city: string
-  district: string
-  address: string
-  phone: string
-  email: string
-  ideb: number
-  idebYear: number
-  availableSlots: number
-  totalStudents: number
-  publicInvestment: number
-  investmentYear: number
+function getIdebSeries(school: any, etapa: "f" | "i" | "m") {
+  const anos = [2005, 2007, 2009, 2011, 2013, 2015, 2017, 2019, 2021, 2023];
+  return anos.map(ano => {
+    const idebValue = school[`ideb_${ano}_${etapa}`] || "0,0";
+    const ideb = parseFloat(idebValue.replace(",", ".")); // Converte para número
+    return {
+      ano: ano.toString(),
+      ideb: isNaN(ideb) ? 0 : ideb,
+    };
+  });
 }
 
 interface SchoolDashboardProps {
-  school: SchoolData
+  school: School
 }
 
 export function SchoolDashboard({ school }: SchoolDashboardProps) {
   const [isVisible, setIsVisible] = useState(false)
+
+  const idebFundamentalFinais = getIdebSeries(school, "f");
+  const idebFundamentalIniciais = getIdebSeries(school, "i");
+  const idebMedio = getIdebSeries(school, "m");
+
+  console.log(school);
 
   useEffect(() => {
     setIsVisible(true)
@@ -52,12 +56,12 @@ export function SchoolDashboard({ school }: SchoolDashboardProps) {
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         }`}
       >
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-balance">{school.name}</h1>
+        <h1 className="text-2xl sm:text-3xl md:text-4x whitespace-break-spaces font-bold mb-4 text-balance">{school.name}</h1>
         <div className="flex flex-col md:flex-row gap-3 sm:gap-4 text-white/90 text-sm sm:text-base">
           <div className="flex items-center gap-2">
             <MapPin className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
             <span className="break-words">
-              {school.address}, {school.district} - {school.city}
+              {school.city}
             </span>
           </div>
         </div>
@@ -66,70 +70,86 @@ export function SchoolDashboard({ school }: SchoolDashboardProps) {
             <Phone className="h-4 w-4 flex-shrink-0" />
             <span>{school.phone}</span>
           </div>
-          <div className="flex items-center gap-2">
-            <Mail className="h-4 w-4 flex-shrink-0" />
-            <span className="break-all">{school.email}</span>
-          </div>
         </div>
       </div>
 
-      {/* Data Dashboard */}
-      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
-        {/* IDEB Card */}
-        <Card
-          className={`border-2 hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:border-primary active:scale-95 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
-          style={{ transitionDelay: "200ms" }}
-        >
-          <CardHeader className="pb-3">
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-base sm:text-lg font-semibold">IDEB</CardTitle>
-              <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-primary/10 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:rotate-12">
-                <BarChart3 className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
-              </div>
-            </div>
+      {/* IDEB Charts */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
+        <Card>
+          <CardHeader>
+            <CardTitle>IDEB - Fundamental Anos Iniciais - 5º ano</CardTitle>
           </CardHeader>
           <CardContent>
-            <div
-              className={`text-4xl sm:text-5xl font-bold mb-2 ${getIdebColor(school.ideb)} transition-all duration-300 hover:scale-110`}
-            >
-              {school.ideb.toFixed(1)}
-            </div>
-            <p className="text-xs sm:text-sm text-muted-foreground mb-3">
-              Índice de Desenvolvimento da Educação Básica
-            </p>
-            <div className="pt-3 border-t">
-              <p className="text-xs text-muted-foreground">Ano de referência: {school.idebYear}</p>
-              <p className="text-xs text-primary font-medium mt-1">Fonte: INEP</p>
-            </div>
+            <ResponsiveContainer width="95%" height={200}>
+              <BarChart data={idebFundamentalIniciais}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="ano" />
+                <YAxis domain={[0, 10]} />
+                <Tooltip />
+                <Bar dataKey="ideb" fill="#059669" name="IDEB" />
+              </BarChart>
+            </ResponsiveContainer>
           </CardContent>
         </Card>
 
+        <Card>
+          <CardHeader>
+            <CardTitle>IDEB - Fundamental Anos Finais - 9º ano</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="95%" height={200}>
+              <BarChart data={idebFundamentalFinais}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="ano" />
+                <YAxis domain={[0, 10]} />
+                <Tooltip />
+                <Bar dataKey="ideb" fill="#2563eb" name="IDEB" />
+              </BarChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>IDEB - Ensino Médio - 3º ano</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="95%" height={200}>
+              <BarChart data={idebMedio}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="ano" />
+                <YAxis domain={[0, 10]} />
+                <Tooltip />
+                <Bar dataKey="ideb" fill="#f59e42" name="IDEB" />
+              </BarChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
         {/* Available Slots Card */}
         <Card
-          className={`border-2 hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:border-secondary active:scale-95 ${
+          className={`border-2 hover:shadow-2xl transition-all duration-500 hover:scale-102 hover:border-secondary active:scale-95 sm:col-span-2 md:col-span-1 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
-          style={{ transitionDelay: "400ms" }}
+          style={{ transitionDelay: "600ms" }}
         >
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-base sm:text-lg font-semibold">Vagas</CardTitle>
+              <CardTitle className="text-base sm:text-lg font-semibold">Alunos</CardTitle>
               <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-secondary/10 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:rotate-12">
                 <Users className="h-5 w-5 sm:h-6 sm:w-6 text-secondary" />
               </div>
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-4xl sm:text-5xl font-bold text-secondary mb-2 transition-all duration-300 hover:scale-110">
-              {school.availableSlots}
+            <div className="text-3xl sm:text-4xl font-bold text-secondary mb-2 transition-all duration-300 hover:scale-102">
+              {school.alunos_ativos?.toLocaleString("pt-BR")}
             </div>
-            <p className="text-xs sm:text-sm text-muted-foreground mb-3">Vagas disponíveis para matrícula</p>
+            <p className="text-xs sm:text-sm text-muted-foreground mb-3">Matrículas ativas</p>
             <div className="pt-3 border-t">
-              <p className="text-xs text-muted-foreground">
-                Total de alunos: {school.totalStudents.toLocaleString("pt-BR")}
-              </p>
+              <p className="text-xs text-muted-foreground">Ano de referência: {new Date().getFullYear()}</p>
               <p className="text-xs text-secondary font-medium mt-1">Fonte: Seduc-GO</p>
             </div>
           </CardContent>
@@ -137,7 +157,7 @@ export function SchoolDashboard({ school }: SchoolDashboardProps) {
 
         {/* Public Investment Card */}
         <Card
-          className={`border-2 hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:border-accent active:scale-95 sm:col-span-2 md:col-span-1 ${
+          className={`border-2 hover:shadow-2xl transition-all duration-500 hover:scale-102 hover:border-accent active:scale-95 sm:col-span-2 md:col-span-1 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
           style={{ transitionDelay: "600ms" }}
@@ -151,12 +171,12 @@ export function SchoolDashboard({ school }: SchoolDashboardProps) {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-accent mb-2 transition-all duration-300 hover:scale-105 break-words">
-              {formatCurrency(school.publicInvestment)}
+            <div className="text-3xl sm:text-4xl font-bold text-accent mb-2 transition-all duration-300 hover:scale-102 break-words">
+              {formatCurrency(school.investimento_ano_atual || 0)}
             </div>
             <p className="text-xs sm:text-sm text-muted-foreground mb-3">Investimento público total</p>
             <div className="pt-3 border-t">
-              <p className="text-xs text-muted-foreground">Ano de referência: {school.investmentYear}</p>
+              <p className="text-xs text-muted-foreground">Ano de referência: {new Date().getFullYear()}</p>
               <p className="text-xs text-accent font-medium mt-1">Fonte: Portal da Transparência</p>
             </div>
           </CardContent>
@@ -189,12 +209,9 @@ para saber o desempenho da sua unidade!
             </p>
           </div>
           <div className="hover:bg-muted/50 p-3 rounded-lg transition-colors">
-            <h4 className="font-semibold text-sm mb-2">Vagas Disponíveis</h4>
+            <h4 className="font-semibold text-sm mb-2">Matrículas Ativas</h4>
             <p className="text-xs sm:text-sm text-muted-foreground text-pretty">
-              Este é o número exato de vagas abertas para novos alunos ou estudantes que desejam 
-se matricular na unidade escolar. É um dado importante para entender a capacidade de 
-atendimento da escola e é atualizado diretamente pela Secretaria de Estado da Educação 
-de Goiás (Seduc-GO).
+              Este é o número exato de alunos matriculados e ativos na unidade escolar. É um dado importante para entender a capacidade de atendimento da escola e é atualizado diretamente pela Secretaria de Estado da Educação de Goiás (Seduc-GO).
             </p>
           </div>
           <div className="hover:bg-muted/50 p-3 rounded-lg transition-colors">

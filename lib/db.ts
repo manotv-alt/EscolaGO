@@ -1,78 +1,140 @@
 function normalizeString(str: string): string {
   return str
     .toLowerCase()
-    .normalize("NFD") // Separa os acentos das letras
-    .replace(/[\u0300-\u036f]/g, ""); // Remove os acentos
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
 }
 
 export interface School {
-  id: string
-  name: string
-  city: string
-  district: string
-  address: string
-  phone: string
-  email: string
-  ideb: number
-  idebYear: number
-  availableSlots: number
-  totalStudents: number
-  publicInvestment: number
-  investmentYear: number
+  id: string;
+  name: string;
+  city: string;
+  phone: string;
+  ideb_2005_f: string;
+  ideb_2007_f: string;
+  ideb_2009_f: string;
+  ideb_2011_f: string;
+  ideb_2013_f: string;
+  ideb_2015_f: string;
+  ideb_2017_f: string;
+  ideb_2019_f: string;
+  ideb_2021_f: string;
+  ideb_2023_f: string;
+  ideb_2005_i: string;
+  ideb_2007_i: string;
+  ideb_2009_i: string;
+  ideb_2011_i: string;
+  ideb_2013_i: string;
+  ideb_2015_i: string;
+  ideb_2017_i: string;
+  ideb_2019_i: string;
+  ideb_2021_i: string;
+  ideb_2023_i: string;
+  ideb_2017_m: string;
+  ideb_2019_m: string;
+  ideb_2021_m: string;
+  ideb_2023_m: string;
+  investimento_ano_atual?: number;
+  alunos_ativos?: number;
 }
 
 interface ApiSchool {
-  Id: string
-  Nome: string
-  Municipio: string
+  Id: string;
+  Nome: string;
+  Municipio: string;
+  ideb_2005_f?: string;
+  ideb_2007_f?: string;
+  ideb_2009_f?: string;
+  ideb_2011_f?: string;
+  ideb_2013_f?: string;
+  ideb_2015_f?: string;
+  ideb_2017_f?: string;
+  ideb_2019_f?: string;
+  ideb_2021_f?: string;
+  ideb_2023_f?: string;
+  ideb_2005_i?: string;
+  ideb_2007_i?: string;
+  ideb_2009_i?: string;
+  ideb_2011_i?: string;
+  ideb_2013_i?: string;
+  ideb_2015_i?: string;
+  ideb_2017_i?: string;
+  ideb_2019_i?: string;
+  ideb_2021_i?: string;
+  ideb_2023_i?: string;
+  ideb_2017_m?: string;
+  ideb_2019_m?: string;
+  ideb_2021_m?: string;
+  ideb_2023_m?: string;
+  investimento_ano_atual?: number;
+  alunos_ativos?: number;
 }
 
-// CACHE EM MEMÓRIA
 let cachedSchools: School[] | null = null;
 
+function mapApiSchool(apiSchool: ApiSchool): School {
+  return {
+    id: apiSchool.Id,
+    name: apiSchool.Nome,
+    city: apiSchool.Municipio,
+    phone: (apiSchool as any).Telefone || "Não informado",
+    ideb_2005_f: apiSchool.ideb_2005_f || "0,0",
+    ideb_2007_f: apiSchool.ideb_2007_f || "0,0",
+    ideb_2009_f: apiSchool.ideb_2009_f || "0,0",
+    ideb_2011_f: apiSchool.ideb_2011_f || "0,0",
+    ideb_2013_f: apiSchool.ideb_2013_f || "0,0",
+    ideb_2015_f: apiSchool.ideb_2015_f || "0,0",
+    ideb_2017_f: apiSchool.ideb_2017_f || "0,0",
+    ideb_2019_f: apiSchool.ideb_2019_f || "0,0",
+    ideb_2021_f: apiSchool.ideb_2021_f || "0,0",
+    ideb_2023_f: apiSchool.ideb_2023_f || "0,0",
+    ideb_2005_i: apiSchool.ideb_2005_i || "0,0",
+    ideb_2007_i: apiSchool.ideb_2007_i || "0,0",
+    ideb_2009_i: apiSchool.ideb_2009_i || "0,0",
+    ideb_2011_i: apiSchool.ideb_2011_i || "0,0",
+    ideb_2013_i: apiSchool.ideb_2013_i || "0,0",
+    ideb_2015_i: apiSchool.ideb_2015_i || "0,0",
+    ideb_2017_i: apiSchool.ideb_2017_i || "0,0",
+    ideb_2019_i: apiSchool.ideb_2019_i || "0,0",
+    ideb_2021_i: apiSchool.ideb_2021_i || "0,0",
+    ideb_2023_i: apiSchool.ideb_2023_i || "0,0",
+    ideb_2017_m: apiSchool.ideb_2017_m || "0,0",
+    ideb_2019_m: apiSchool.ideb_2019_m || "0,0",
+    ideb_2021_m: apiSchool.ideb_2021_m || "0,0",
+    ideb_2023_m: apiSchool.ideb_2023_m || "0,0",
+    investimento_ano_atual: apiSchool.investimento_ano_atual || 0,
+    alunos_ativos: apiSchool.alunos_ativos || 0,
+  };
+}
+
 export async function getAllSchools(): Promise<School[]> {
-  if (cachedSchools) {
-    return cachedSchools;
-  }
+  if (cachedSchools) return cachedSchools;
 
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/Escolas` , {
-      next: { revalidate: 3600 } // Revalida a cada 1 hora
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/Escolas`, {
+      next: { revalidate: 3600 },
     });
-    
+
     if (!response.ok) {
       console.error("Erro ao buscar dados da API:", response.statusText);
       return [];
     }
-    
+
     const apiResponse = await response.json();
-    const apiData: ApiSchool[] = apiResponse.data;
+    const apiData: ApiSchool[] = Array.isArray(apiResponse)
+      ? apiResponse
+      : Array.isArray(apiResponse?.data)
+      ? apiResponse.data
+      : [];
 
     if (!Array.isArray(apiData)) {
-      console.error("A propriedade 'data' na resposta da API não é um array.");
+      console.error("A resposta da API não é um array.", apiResponse);
       return [];
     }
 
-    const schools: School[] = apiData.map(apiSchool => ({
-      id: apiSchool.Id,
-      name: apiSchool.Nome,
-      city: apiSchool.Municipio,
-      district: 'Não informado',
-      address: 'Não informado',
-      phone: 'Não informado',
-      email: 'nao.informado@seduc.go.gov.br',
-      ideb: 0,
-      idebYear: 2024,
-      availableSlots: 0,
-      totalStudents: 0,
-      publicInvestment: 0,
-      investmentYear: 2024,
-    }));
-
-    // Guardamos a lista de escolas no cache
+    const schools: School[] = apiData.map(mapApiSchool);
     cachedSchools = schools;
     return schools;
-
   } catch (error) {
     console.error("Falha na conexão com a API:", error);
     return [];
@@ -80,25 +142,41 @@ export async function getAllSchools(): Promise<School[]> {
 }
 
 export async function getSchoolById(id: string): Promise<School | null> {
-  const schools = await getAllSchools();
-  return schools.find((school) => school.id === id) || null;
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/Escolas/${id}`, {
+      next: { revalidate: 3600 }
+    });
+
+    if (!response.ok) {
+      console.error("Erro ao buscar dados da API:", response.statusText);
+      return null;
+    }
+
+    let apiSchool: any = await response.json();
+    console.log(apiSchool);
+
+    if (apiSchool?.data) apiSchool = apiSchool.data;
+
+    if (!apiSchool) return null;
+
+    return mapApiSchool(apiSchool as ApiSchool);
+  } catch (error) {
+    console.error("Falha na conexão com a API:", error);
+    return null;
+  }
 }
 
 export async function searchSchools(query: string): Promise<School[]> {
   if (query.length < 3) return [];
 
   const schools = await getAllSchools();
-  
   const normalizedQuery = normalizeString(query);
 
   return schools.filter((school) => {
     const normalizedName = normalizeString(school.name);
     const normalizedCity = normalizeString(school.city);
 
-    return (
-      normalizedName.includes(normalizedQuery) ||
-      normalizedCity.includes(normalizedQuery)
-    );
+    return normalizedName.includes(normalizedQuery) || normalizedCity.includes(normalizedQuery);
   });
 }
 
@@ -107,19 +185,26 @@ export async function getSchoolsByCity(city: string): Promise<School[]> {
   return schools.filter((school) => school.city.toLowerCase() === city.toLowerCase());
 }
 
-export async function getAverageIdeb(): Promise<number> {
-  const schools = await getAllSchools();
-  if (schools.length === 0) return 0;
-  const sum = schools.reduce((acc, school) => acc + school.ideb, 0);
-  return sum / schools.length;
-}
+export async function getTotalData(): Promise<{ mediumIdeb?: number; totalStudents?: number; totalPublicInvestment?: number } | null> {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/dadosTotais`);
 
-export async function getTotalAvailableSlots(): Promise<number> {
-  const schools = await getAllSchools();
-  return schools.reduce((acc, school) => acc + school.availableSlots, 0);
-}
+    if (!response.ok) {
+      console.error("Erro ao buscar dados da API:", response.statusText);
+      return null;
+    }
 
-export async function getTotalPublicInvestment(): Promise<number> {
-  const schools = await getAllSchools();
-  return schools.reduce((acc, school) => acc + school.publicInvestment, 0);
+    let apiData: any = await response.json();
+
+    if (apiData?.data) apiData = apiData.data;
+
+    return {
+      mediumIdeb: apiData.Ideb || 0,
+      totalStudents: apiData.NumeroAlunos || 0,
+      totalPublicInvestment: apiData.Investimento || 0,
+    };
+  } catch (error) {
+    console.error("Falha na conexão com a API:", error);
+    return null;
+  }
 }
