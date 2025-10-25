@@ -19,7 +19,7 @@ export default async function SchoolPage({ params }: { params: { id: string } })
       <Header />
       <main className="container mx-auto px-4 py-8">
         <Link href="/">
-          <Button variant="ghost" className="mb-6">
+          <Button variant="ghost" className="mb-6 text-white">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Voltar para busca
           </Button>

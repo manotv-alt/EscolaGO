@@ -35,8 +35,8 @@ export function InfoSection() {
     },
     {
       icon: Users,
-      title: "Vagas Disponíveis",
-      description: "Número atual de vagas em cada unidade escolar",
+      title: "Matrículas Ativas",
+      description: "Número atual de alunos em cada unidade escolar",
       source: "Fonte: Seduc-GO",
       color: "secondary",
     },

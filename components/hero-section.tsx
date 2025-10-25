@@ -32,8 +32,8 @@ export function HeroSection() {
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
-            Acesse, compare e entenda os dados 
-completos sobre as escolas estaduais de Goiás: IDEB, vagas disponíveis e 
+            Acesse, compare e entenda os dados
+completos sobre as escolas estaduais de Goiás: IDEB, matrículas ativas e
 investimentos públicos, reunidos em uma única plataforma clara e acessível.
           </p>
 

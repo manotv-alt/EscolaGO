@@ -79,7 +79,7 @@ export default function ContactPage() {
                         </div>
                         <h3 className="font-bold mb-2 text-sm sm:text-base">Email</h3>
                         <p className="text-xs sm:text-sm text-muted-foreground break-all">
-                          contato@transparenciaescolar.go.gov.br
+                          emmanuelcontatocomercia@gmail.com
                         </p>
                       </div>
                     </CardContent>

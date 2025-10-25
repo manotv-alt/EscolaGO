@@ -117,7 +117,7 @@ export function SchoolSearch() {
               <div className="text-xs sm:text-sm text-muted-foreground flex items-center gap-1 mt-1">
                 <MapPin className="h-3 w-3 flex-shrink-0" />
                 <span className="truncate">
-                  {school.city} - {school.district}
+                  {school.city}
                 </span>
               </div>
             </button>

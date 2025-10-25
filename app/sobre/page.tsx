@@ -60,7 +60,7 @@ export default function AboutPage() {
     {
       name: "Seduc-GO",
       fullName: "Secretaria de Estado da Educação de Goiás",
-      description: "Disponibiliza informações sobre vagas e matrículas nas escolas estaduais.",
+      description: "Disponibiliza informações sobre matrículas nas escolas estaduais.",
       url: "https://www.educacao.go.gov.br/",
     },
     {
@@ -194,7 +194,7 @@ qualidade da educação que recebem.
                     number: "2",
                     title: "Visualize os Dados",
                     description:
-                      "Acesse o painel de dados da escola com informações sobre IDEB, vagas disponíveis e investimento público.",
+                      "Acesse o painel de dados da escola com informações sobre IDEB, matrículas ativas e investimento público.",
                   },
                   {
                     number: "3",
