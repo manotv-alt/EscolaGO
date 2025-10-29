@@ -30,20 +30,20 @@ export default async function HomePage() {
             <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
               <Card className="bg-white/10 border-white/20 backdrop-blur">
                 <CardContent className="pt-6 text-center">
-                  <div className="text-4xl md:text-5xl font-bold mb-2">{mediumIdeb?.toFixed(1)}</div>
+                  <div className="text-4xl md:text-5xl font-bold mb-2 text-white">{mediumIdeb?.toFixed(1)}</div>
                   <p className="text-white/90">IDEB Médio Estadual</p>
                 </CardContent>
               </Card>
               <Card className="bg-white/10 border-white/20 backdrop-blur">
                 <CardContent className="pt-6 text-center">
-                  <div className="text-4xl md:text-5xl font-bold mb-2">{totalStudents?.toLocaleString("pt-BR")}</div>
+                  <div className="text-4xl md:text-5xl font-bold mb-2 text-white">{totalStudents?.toLocaleString("pt-BR")}</div>
                   <p className="text-white/90">Alunos Ativos</p>
                 </CardContent>
               </Card>
               <Card className="bg-white/10 border-white/20 backdrop-blur">
                 <CardContent className="pt-6 text-center">
-                  <div className="text-4xl md:text-5xl font-bold mb-2">{formatCurrency(totalPublicInvestment || 0)}</div>
-                  <p className="text-white/90">Investimento Total</p>
+                  <div className="text-4xl md:text-5xl font-bold mb-2 text-white">{formatCurrency(totalPublicInvestment || 0)}</div>
+                  <p className="text-white/90">Repasse Total</p>
                 </CardContent>
               </Card>
             </div>
