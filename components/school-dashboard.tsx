@@ -149,8 +149,8 @@ export function SchoolDashboard({ school }: SchoolDashboardProps) {
             </div>
             <p className="text-xs sm:text-sm text-muted-foreground mb-3">Matrículas ativas</p>
             <div className="pt-3 border-t">
-              <p className="text-xs text-muted-foreground">Ano de referência: {new Date().getFullYear()}</p>
-              <p className="text-xs text-secondary font-medium mt-1">Fonte: Seduc-GO</p>
+              <p className="text-xs text-muted-foreground">Ano de referência: {new Date().getFullYear() - 1}</p>
+              <p className="text-xs text-secondary font-medium mt-1">Fonte: <a href="https://dadosabertos.go.gov.br/dataset/quantitativo-de-alunos-por-etapa-de-ensino" target="blank">Dados Abertos Goiás</a></p>
             </div>
           </CardContent>
         </Card>
@@ -174,10 +174,10 @@ export function SchoolDashboard({ school }: SchoolDashboardProps) {
             <div className="text-3xl sm:text-4xl font-bold text-accent mb-2 transition-all duration-300 hover:scale-102 break-words">
               {formatCurrency(school.investimento_ano_atual || 0)}
             </div>
-            <p className="text-xs sm:text-sm text-muted-foreground mb-3">Investimento público total</p>
+            <p className="text-xs sm:text-sm text-muted-foreground mb-3">Repasses financeiros agrupados</p>
             <div className="pt-3 border-t">
               <p className="text-xs text-muted-foreground">Ano de referência: {new Date().getFullYear()}</p>
-              <p className="text-xs text-accent font-medium mt-1">Fonte: Portal da Transparência</p>
+              <p className="text-xs text-accent font-medium mt-1">Fonte: <a href="https://goias.gov.br/educacao/repasse-escolar-pro-escola/" target="blank">Secretaria de Educação</a></p>
             </div>
           </CardContent>
         </Card>
@@ -211,7 +211,7 @@ para saber o desempenho da sua unidade!
           <div className="hover:bg-muted/50 p-3 rounded-lg transition-colors">
             <h4 className="font-semibold text-sm mb-2">Matrículas Ativas</h4>
             <p className="text-xs sm:text-sm text-muted-foreground text-pretty">
-              Este é o número exato de alunos matriculados e ativos na unidade escolar. É um dado importante para entender a capacidade de atendimento da escola e é atualizado diretamente pela Secretaria de Estado da Educação de Goiás (Seduc-GO).
+              Este é o número exato de alunos matriculados e ativos na unidade escolar. É um dado importante para entender a capacidade de atendimento da escola e é atualizado diretamente pela Controladoria Geral do Estado.
             </p>
           </div>
           <div className="hover:bg-muted/50 p-3 rounded-lg transition-colors">

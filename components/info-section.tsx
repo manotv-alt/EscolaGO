@@ -43,7 +43,7 @@ export function InfoSection() {
     {
       icon: DollarSign,
       title: "Investimento Público",
-      description: "Valor total de investimento público por escola",
+      description: "Valor total do repasse por escola",
       source: "Fonte: Portal da Transparência",
       color: "accent",
     },

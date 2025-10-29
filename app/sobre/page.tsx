@@ -55,19 +55,19 @@ export default function AboutPage() {
       name: "INEP",
       fullName: "Instituto Nacional de Estudos e Pesquisas Educacionais Anísio Teixeira",
       description: "Fornece os dados do IDEB (Índice de Desenvolvimento da Educação Básica).",
-      url: "https://www.gov.br/inep/",
+      url: "https://www.gov.br/inep/pt-br/areas-de-atuacao/pesquisas-estatisticas-e-indicadores/ideb/resultados",
     },
     {
       name: "Seduc-GO",
       fullName: "Secretaria de Estado da Educação de Goiás",
       description: "Disponibiliza informações sobre matrículas nas escolas estaduais.",
-      url: "https://www.educacao.go.gov.br/",
+      url: "https://dadosabertos.go.gov.br/dataset/quantitativo-de-alunos-por-etapa-de-ensino",
     },
     {
       name: "Portal da Transparência",
       fullName: "Portal da Transparência do Governo de Goiás",
       description: "Apresenta dados sobre investimentos públicos em cada unidade escolar.",
-      url: "https://www.transparencia.go.gov.br/",
+      url: "https://goias.gov.br/educacao/repasse-escolar-pro-escola/",
     },
   ]
 
