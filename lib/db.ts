@@ -187,7 +187,9 @@ export async function getSchoolsByCity(city: string): Promise<School[]> {
 
 export async function getTotalData(): Promise<{ mediumIdeb?: number; totalStudents?: number; totalPublicInvestment?: number } | null> {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/dadosTotais`);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/dadosTotais`, {
+      next: { revalidate: 3600 }
+    });
 
     if (!response.ok) {
       console.error("Erro ao buscar dados da API:", response.statusText);
