@@ -9,7 +9,8 @@ export interface School {
   id: string;
   name: string;
   city: string;
-  phone: string;
+  diretor?: string;
+  local?: string;
   ideb_2005_f: string;
   ideb_2007_f: string;
   ideb_2009_f: string;
@@ -42,6 +43,8 @@ interface ApiSchool {
   Id: string;
   Nome: string;
   Municipio: string;
+  Diretor?: string;
+  Local?: string;
   ideb_2005_f?: string;
   ideb_2007_f?: string;
   ideb_2009_f?: string;
@@ -77,7 +80,8 @@ function mapApiSchool(apiSchool: ApiSchool): School {
     id: apiSchool.Id,
     name: apiSchool.Nome,
     city: apiSchool.Municipio,
-    phone: (apiSchool as any).Telefone || "Não informado",
+    diretor: apiSchool.Diretor || "Não informado",
+    local: apiSchool.Local || "Não informado",
     ideb_2005_f: apiSchool.ideb_2005_f || "0,0",
     ideb_2007_f: apiSchool.ideb_2007_f || "0,0",
     ideb_2009_f: apiSchool.ideb_2009_f || "0,0",

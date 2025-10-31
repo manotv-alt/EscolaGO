@@ -1,7 +1,7 @@
 "use client"
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Users, DollarSign, MapPin, Phone } from "lucide-react"
+import { Users, DollarSign, MapPin, Mail, Briefcase } from "lucide-react"
 import { useEffect, useState } from "react"
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend } from "recharts";
 import { School } from "@/lib/db";
@@ -29,23 +29,16 @@ export function SchoolDashboard({ school }: SchoolDashboardProps) {
   const idebFundamentalIniciais = getIdebSeries(school, "i");
   const idebMedio = getIdebSeries(school, "m");
 
-  console.log(school);
-
   useEffect(() => {
     setIsVisible(true)
   }, [])
 
-  const formatCurrency = (value: number) => {
+  const formatCurrency = (value?: number) => {
+    if (value == 0) return null;
     return new Intl.NumberFormat("pt-BR", {
       style: "currency",
       currency: "BRL",
     }).format(value)
-  }
-
-  const getIdebColor = (ideb: number) => {
-    if (ideb >= 6) return "text-primary"
-    if (ideb >= 5) return "text-accent"
-    return "text-destructive"
   }
 
   return (
@@ -61,14 +54,20 @@ export function SchoolDashboard({ school }: SchoolDashboardProps) {
           <div className="flex items-center gap-2">
             <MapPin className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
             <span className="break-words">
-              {school.city}
+              {school.local}, {school.city}
             </span>
           </div>
         </div>
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-3 text-white/90 text-sm sm:text-base">
           <div className="flex items-center gap-2">
-            <Phone className="h-4 w-4 flex-shrink-0" />
-            <span>{school.phone}</span>
+            <Mail className="h-4 w-4 flex-shrink-0" />
+            <span>{school.id}@seduc.go.gov.br</span>
+          </div>
+        </div>
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-3 text-white/90 text-sm sm:text-base">
+          <div className="flex items-center gap-2">
+            <Briefcase className="h-4 w-4 flex-shrink-0" />
+            <span>{school.diretor} - Diretor(a)</span>
           </div>
         </div>
       </div>
@@ -145,7 +144,7 @@ export function SchoolDashboard({ school }: SchoolDashboardProps) {
           </CardHeader>
           <CardContent>
             <div className="text-3xl sm:text-4xl font-bold text-secondary mb-2 transition-all duration-300 hover:scale-102">
-              {school.alunos_ativos?.toLocaleString("pt-BR")}
+              {school.alunos_ativos && school.alunos_ativos > 0 ? school.alunos_ativos.toLocaleString("pt-BR") : "Não informado"}
             </div>
             <p className="text-xs sm:text-sm text-muted-foreground mb-3">Matrículas ativas</p>
             <div className="pt-3 border-t">
@@ -172,7 +171,7 @@ export function SchoolDashboard({ school }: SchoolDashboardProps) {
           </CardHeader>
           <CardContent>
             <div className="text-3xl sm:text-4xl font-bold text-accent mb-2 transition-all duration-300 hover:scale-102 break-words">
-              {formatCurrency(school.investimento_ano_atual || 0)}
+              {formatCurrency(school.investimento_ano_atual) || "Não informado"}
             </div>
             <p className="text-xs sm:text-sm text-muted-foreground mb-3">Repasses financeiros agrupados</p>
             <div className="pt-3 border-t">
