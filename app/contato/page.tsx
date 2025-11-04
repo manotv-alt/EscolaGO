@@ -11,32 +11,42 @@ import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Mail, MessageSquare, Send } from "lucide-react"
 import { useState } from "react"
+import { sendEmail, type EmailData } from "@/lib/db"
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<EmailData>({
     name: "",
     email: "",
     subject: "",
     message: "",
   })
+
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [submissionError, setSubmissionError] = useState<string | null>(null)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setIsSubmitted(false)
+    setSubmissionError(null)
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500))
+    const result = await sendEmail(formData)
 
     setIsSubmitting(false)
-    setIsSubmitted(true)
 
-    // Reset form after 3 seconds
-    setTimeout(() => {
+    if (result.status === "success") {
+      setIsSubmitted(true)
+
       setFormData({ name: "", email: "", subject: "", message: "" })
-      setIsSubmitted(false)
-    }, 3000)
+      
+      setTimeout(() => {
+        setIsSubmitted(false)
+      }, 3000)
+
+    } else {
+      setSubmissionError(result.error || "Ocorreu um erro desconhecido. Tente novamente.")
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

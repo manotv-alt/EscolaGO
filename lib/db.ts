@@ -73,6 +73,13 @@ interface ApiSchool {
   alunos_ativos?: number;
 }
 
+export interface EmailData {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
+
 let cachedSchools: School[] | null = null;
 
 function mapApiSchool(apiSchool: ApiSchool): School {
@@ -212,5 +219,43 @@ export async function getTotalData(): Promise<{ mediumIdeb?: number; totalStuden
   } catch (error) {
     console.error("Falha na conexão com a API:", error);
     return null;
+  }
+}
+
+export async function sendEmail(data: EmailData): Promise<{ status: string; data?: any; error?: string }> {
+  const token = process.env.NEXT_PUBLIC_API_TOKEN; 
+
+  if (!token) {
+    const errorMessage = "Token da API (NEXT_PUBLIC_API_TOKEN) não está definido no frontend.";
+    return { status: "error", error: errorMessage };
+  }
+
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/SendEmail`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(data)
+    });
+
+    const responseData = await response.json();
+
+    if (!response.ok) {
+      const errorMessage = responseData.detail || "Falha ao enviar email";
+      console.error("Erro ao enviar email (API):", errorMessage);
+      return { status: "error", error: errorMessage };
+    }
+
+    return { status: "success", data: responseData.data };
+
+  } catch (error) {
+    console.error("Erro de rede ao enviar email:", error);
+    let errorMessage = "Erro de rede";
+    if (error instanceof Error) {
+        errorMessage = error.message;
+    }
+    return { status: "error", error: errorMessage };
   }
 }
