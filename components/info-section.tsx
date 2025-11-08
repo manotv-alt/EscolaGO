@@ -1,6 +1,6 @@
 "use client"
 
-import { BarChart3, Users, DollarSign } from "lucide-react"
+import { BarChart3, Users, DollarSign, InfoIcon } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { useEffect, useRef, useState } from "react"
 
@@ -34,10 +34,17 @@ export function InfoSection() {
       color: "primary",
     },
     {
+      icon: InfoIcon,
+      title: "Informações Detalhadas",
+      description: "Endereço e diretoria de cada escola estadual",
+      source: "Fonte: SEDUC-GO",
+      color: "destructive",
+    },
+    {
       icon: Users,
       title: "Matrículas Ativas",
       description: "Número atual de alunos em cada unidade escolar",
-      source: "Fonte: Seduc-GO",
+      source: "Fonte: Dados Abertos",
       color: "secondary",
     },
     {
@@ -46,7 +53,7 @@ export function InfoSection() {
       description: "Valor total do repasse por escola",
       source: "Fonte: Portal da Transparência",
       color: "accent",
-    },
+    }
   ]
 
   return (
@@ -66,7 +73,7 @@ export function InfoSection() {
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto">
+        <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 max-w-5xl mx-auto">
           {features.map((feature, index) => {
             const Icon = feature.icon
             return (

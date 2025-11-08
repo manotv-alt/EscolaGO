@@ -58,10 +58,16 @@ export default function AboutPage() {
       url: "https://www.gov.br/inep/pt-br/areas-de-atuacao/pesquisas-estatisticas-e-indicadores/ideb/resultados",
     },
     {
-      name: "Seduc-GO",
+      name: "Dados Abertos",
       fullName: "Secretaria de Estado da Educação de Goiás",
       description: "Disponibiliza informações sobre matrículas nas escolas estaduais.",
       url: "https://dadosabertos.go.gov.br/dataset/quantitativo-de-alunos-por-etapa-de-ensino",
+    },
+    {
+      name: "Seduc-GO",
+      fullName: "Secretaria de Estado da Educação de Goiás",
+      description: "Disponibiliza informações sobre o endereço e diretoria das escolas estaduais.",
+      url: "http://www.seduc.go.gov.br/escolas/",
     },
     {
       name: "Portal da Transparência",
